@@ -29,7 +29,7 @@ require "rene/conexion3.php";
 
 
 <?php
-$sql = "SELECT * FROM Carpetas ";
+$sql = "SELECT * FROM Carpetas ORDER BY `Caja`";
 $resultado = mysqli_query($conec, $sql);
 $contador=0;
 ?>

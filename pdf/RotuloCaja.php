@@ -53,7 +53,7 @@ if ($result = $conec->query($sql)) {
 // Creación del objeto de la clase heredada
 $pdf = new PDF('P', 'mm', array(216, 330));
 
-$pdf->SetTitle(utf8_decode("Caja " . $Caja));
+$pdf->SetTitle(utf8_decode($Caja." Caja"));
 
 $pdf->AddPage();
 $pdf->AliasNbPages();

@@ -40,7 +40,7 @@ while($row = $result->fetch_assoc()) {
 
 // Creación del objeto de la clase heredada
 $pdf=new fpdf('L', 'mm', array(216,330)); 
-$pdf->SetTitle(utf8_decode("Carpeta ".$Car2." Caja ".$Caja));
+$pdf->SetTitle(utf8_decode($Car2." Carpeta (Caja ".$Caja).")");
 
 $pdf->AddPage();
 $pdf->AliasNbPages();
@@ -57,7 +57,7 @@ $pdf->SetXY(42.3, 99.1);
 $pdf->MultiCell(87,6.8,utf8_decode($Subs), 0);//Sub-serie
 
 $pdf->SetXY(42.3, 107.3);
-$pdf->MultiCell(87,12.7,utf8_decode($Titulo), 0);//Titulo Carpeta
+$pdf->MultiCell(87,6.2,utf8_decode($Titulo), 0);//Titulo Carpeta
 
 $pdf->SetXY(134.1, 109.9);
 $pdf->MultiCell(24.1,10,utf8_decode($Car2), 0, 'C');//Numero carpeta
