@@ -47,25 +47,22 @@ $contador=0;
 
                     
                         <div class="row">
-
                             <div class="col-md-12 form-group">
                                 <center>
                                   
 <form action="pdf/RotuloCarpeta.php" method="post" target="_blank">
 <table class="mi-tabla">
-  <tr>
-    
+  <tr style="font: size 8px;">    
     <th>Caja</th>
     <th>Carpeta</th>
-    <th>CaCa</th>
-    <th>Car2</th>
     <th>Serie</th>
     <th>Sub-serie</th>
     <th>Titulo</th>
     <th>Fecha Inicial</th>
     <th>Fecha Final</th>
     <th>Folios</th>
-    <th>Generar Rotulo</th>
+    <th>R.Carpeta</th>
+    <th>R.Caja</th>
   </tr>
   <?php
   if ($resultado->num_rows > 0) {
@@ -84,8 +81,7 @@ $contador=0;
       <tr>
         
         <td style="<?php echo $backgroundcolor ?>"><?php echo htmlspecialchars($fila["Caja"], ENT_QUOTES, 'UTF-8'); ?></td>
-        <td style="<?php echo $backgroundcolor ?>"><?php echo htmlspecialchars($fila["Carpeta"], ENT_QUOTES, 'UTF-8'); ?></td>
-        <td style="<?php echo $backgroundcolor ?>"><?php echo htmlspecialchars($fila["CaCa"], ENT_QUOTES, 'UTF-8'); ?></td>
+
         <td style="<?php echo $backgroundcolor ?>"><?php echo htmlspecialchars($fila["Car2"], ENT_QUOTES, 'UTF-8'); ?></td>
         <td style="<?php echo $backgroundcolor ?>"><?php echo htmlspecialchars($fila["Serie"], ENT_QUOTES, 'UTF-8'); ?></td>
         <td style="<?php echo $backgroundcolor ?>"><?php echo htmlspecialchars($fila["Subs"], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -93,7 +89,22 @@ $contador=0;
         <td style="<?php echo $backgroundcolor ?>"><?php echo htmlspecialchars($fila["FInicial"], ENT_QUOTES, 'UTF-8'); ?></td>
         <td style="<?php echo $backgroundcolor ?>"><?php echo htmlspecialchars($fila["FFinal"], ENT_QUOTES, 'UTF-8'); ?></td>
         <td style="<?php echo $backgroundcolor ?>"><?php echo htmlspecialchars($fila["Folios"], ENT_QUOTES, 'UTF-8'); ?></td>
-        <td style="<?php echo $backgroundcolor ?>"><?php echo '<button type="submit" name="consulta" value="'.$fila['id'].'" id="consulta" >Generar</button>'; ?></td>
+
+        <form action="pdf/RotuloCarpeta.php" method="post" target="_blank">
+        <td style="<?php echo $backgroundcolor ?>"><?php echo '<button type="submit" name="consulta" value="'.$fila['id'].'" id="consulta" >R.Carpeta '.$fila['Car2'].'</button>'; ?></td>
+        </form>
+
+
+        <?php 
+            if ($fila["Car2"]==1) {
+        ?>
+        <form action="pdf/RotuloCaja.php" method="post" target="_blank">
+        <td style="<?php echo $backgroundcolor; ?>"><?php echo '<button type="submit" name="consulta" value="'.$fila['Caja'].'" id="consulta" >R.Caja '.$fila['Caja'].'</button>'; ?></td>
+        </form>
+        <?php  
+            }
+        ?>
+
       </tr>
       <?php
     }
@@ -103,7 +114,7 @@ $contador=0;
   $conn->close();
   ?>
 </table>
-</form>
+
 
                                 </center>
                             </div> 
