@@ -143,15 +143,3 @@ $fpdf->Output('', utf8_decode("CERTIFICACIÓN(").$_SESSION['id'].") X Congreso I
  
 }
 session_destroy();
-
-
-?>   
-
-                 
-            
-            
-                  
-       
-
-
-  

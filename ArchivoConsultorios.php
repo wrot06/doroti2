@@ -7,7 +7,7 @@
 
     <?php   
     require 'rene/head.php';  
-    require "rene/conexion3.php";
+    require "rene/conexion4.php";
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
@@ -16,13 +16,13 @@
 
     // Verifica si el usuario está autenticado
     if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
-        header('Location: login.php'); // Redirige al inicio de sesión si no está autenticado
+        header('Location: login2.php'); // Redirige al inicio de sesión si no está autenticado
         exit();
     }
 
     if (isset($_POST['cerrar_seccion'])) {
         session_destroy();
-        header("Location: login.php"); // Redirige a la página deseada
+        header("Location: login2.php"); // Redirige a la página deseada
         exit();
     }
     ?>
@@ -36,7 +36,7 @@
     <form method="POST" style="margin-right: 15px;">
         <input type="submit" name="cerrar_seccion" value="Salir" style="text-align:left;">
     </form>
-    <img src="img/Doroti Logo Horizontal.jpg" style="margin-right: 15px; height: 18px;">
+    <img src="img/Doroti Logo Horizontal 2.jpg" style="margin-right: 15px; height: 18px;">
     <input type="text" id="search" placeholder="Buscar..." onkeyup="searchTable()">
 </div>
 
@@ -68,7 +68,7 @@
                 <tr style="background-color: <?= $colorAcordeon; ?>;">
                     <td style="text-align: center;"><button class="accordion">v</button></td>
                     <td style="text-align: center;"><?= htmlspecialchars($fila["Caja"], ENT_QUOTES, 'UTF-8') ?></td>
-                    <td style="text-align: center;"><?= htmlspecialchars($fila["Car2"], ENT_QUOTES, 'UTF-8') ?></td>
+                    <td style="text-align: center;"><?= htmlspecialchars($fila["Carpeta"], ENT_QUOTES, 'UTF-8') ?></td>
                     <td><b><?= htmlspecialchars($fila["Serie"], ENT_QUOTES, 'UTF-8') ?></b></td>
                     <td><?= htmlspecialchars($fila["Subs"], ENT_QUOTES, 'UTF-8') ?></td>
                     <td><?= htmlspecialchars($fila["Titulo"], ENT_QUOTES, 'UTF-8') ?></td>
@@ -76,13 +76,13 @@
                     <td style="text-align: center;"><?= htmlspecialchars($fila["FFinal"], ENT_QUOTES, 'UTF-8') ?></td>
                     <td style="text-align: center;"><b><?= htmlspecialchars($fila["Folios"], ENT_QUOTES, 'UTF-8') ?></b></td>
                     <td style="text-align: center;">
-                        <form action="pdf/RotuloCarpeta.php" method="post" target="_blank">
-                            <button type="submit" name="consulta" value="<?= $fila['id'] ?>">Carpeta <?= htmlspecialchars($fila['Car2'], ENT_QUOTES, 'UTF-8') ?></button>
+                        <form action="pdf/RotuloCarpetaConsul.php" method="post" target="_blank">
+                            <button type="submit" name="consulta" value="<?= $fila['id'] ?>">Carpeta <?= htmlspecialchars($fila['Carpeta'], ENT_QUOTES, 'UTF-8') ?></button>
                         </form>
                     </td>
-                    <?php if ($fila["Car2"] == 1): ?>
+                    <?php if ($fila["Carpeta"] == 1): ?>
                     <td style="text-align: center;">
-                        <form action="pdf/RotuloCaja.php" method="post" target="_blank">
+                        <form action="pdf/RotuloCajaConsul.php" method="post" target="_blank">
                             <button type="submit" name="consulta" value="<?= $fila['Caja'] ?>">Caja <?= htmlspecialchars($fila['Caja'], ENT_QUOTES, 'UTF-8') ?></button>
                         </form>
                     </td>
@@ -92,34 +92,9 @@
                 <tr class="panel" style="display: none;">
                 <td colspan="11" class="alinear-derecha">
 
-                            <?php
-                            
-                            $sql3 = "SELECT * FROM IndiceDocumental WHERE Caja = '" . $fila['Caja'] . "' AND Carpeta = '" . $fila['Car2'] . "'";
-                            $resultado3 = mysqli_query($conec, $sql3);
-                            
-                            if ($resultado3) {
-                                while ($row = mysqli_fetch_assoc($resultado3)) {                                   
-                                    $Carpeta=$row['Carpeta'];
-                                    $Caja=$row['Caja'];         
-                                }
-                            }
-                            ?>
-                
-                <form action="indice2.php" method="post" target="_blank">
-                            <input type="hidden" name="Carpeta" value="<?= $Carpeta ?>">
-                            <button style="margin-right: 25px; height: 18px;" type="submit" name="Caja" value="<?= $Caja ?>">Indice2</button>
-                </form>
-
-                <form action="pdf/Indice.php" method="post" target="_blank">
-                            <input type="hidden" name="Carpeta" value="<?= $Carpeta ?>">
-                            <button style="margin-right: 25px; height: 18px;" type="submit" name="Caja" value="<?= $Caja ?>">Indice Carpeta <?= htmlspecialchars($fila['Car2'], ENT_QUOTES, 'UTF-8') ?></button>
-                </form>
- 
                 <div style="width: 90%; display: flex; justify-content: center; padding-right: 5%;">
-                   
                     <table class="mi-tabla2">
                         <?php
-                        
                         $sql2 = "SELECT * FROM IndiceDocumental WHERE Caja = '" . $fila['Caja'] . "' AND Carpeta = '" . $fila['Car2'] . "'";
                         $resultado2 = mysqli_query($conec, $sql2);
                         

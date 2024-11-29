@@ -6,7 +6,7 @@
 
 <?php   
 require 'rene/head.php';  
-require "rene/coneicon.php";
+require "rene/conexion.php";
 ?>
 
 <style>

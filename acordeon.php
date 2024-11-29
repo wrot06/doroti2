@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doroti</title>
+    <title>Acordeón Simple con Búsqueda</title>
 
     <?php   
     require 'rene/head.php';  
@@ -11,32 +11,13 @@
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
-
-    session_start();
-
-    // Verifica si el usuario está autenticado
-    if (!isset($_SESSION['authenticated']) || $_SESSION['authenticated'] !== true) {
-        header('Location: login.php'); // Redirige al inicio de sesión si no está autenticado
-        exit();
-    }
-
-    if (isset($_POST['cerrar_seccion'])) {
-        session_destroy();
-        header("Location: login.php"); // Redirige a la página deseada
-        exit();
-    }
     ?>
 
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
 
-<div class="buscador" style="display: flex; justify-content: flex-end; align-items: center;">
-    
-    <form method="POST" style="margin-right: 15px;">
-        <input type="submit" name="cerrar_seccion" value="Salir" style="text-align:left;">
-    </form>
-    <img src="img/Doroti Logo Horizontal.jpg" style="margin-right: 15px; height: 18px;">
+<div class="buscador">
     <input type="text" id="search" placeholder="Buscar..." onkeyup="searchTable()">
 </div>
 
@@ -90,43 +71,16 @@
                 </tr>
 
                 <tr class="panel" style="display: none;">
-                <td colspan="11" class="alinear-derecha">
-
-                            <?php
-                            
-                            $sql3 = "SELECT * FROM IndiceDocumental WHERE Caja = '" . $fila['Caja'] . "' AND Carpeta = '" . $fila['Car2'] . "'";
-                            $resultado3 = mysqli_query($conec, $sql3);
-                            
-                            if ($resultado3) {
-                                while ($row = mysqli_fetch_assoc($resultado3)) {                                   
-                                    $Carpeta=$row['Carpeta'];
-                                    $Caja=$row['Caja'];         
-                                }
-                            }
-                            ?>
-                
-                <form action="indice2.php" method="post" target="_blank">
-                            <input type="hidden" name="Carpeta" value="<?= $Carpeta ?>">
-                            <button style="margin-right: 25px; height: 18px;" type="submit" name="Caja" value="<?= $Caja ?>">Indice2</button>
-                </form>
-
-                <form action="pdf/Indice.php" method="post" target="_blank">
-                            <input type="hidden" name="Carpeta" value="<?= $Carpeta ?>">
-                            <button style="margin-right: 25px; height: 18px;" type="submit" name="Caja" value="<?= $Caja ?>">Indice Carpeta <?= htmlspecialchars($fila['Car2'], ENT_QUOTES, 'UTF-8') ?></button>
-                </form>
- 
-                <div style="width: 90%; display: flex; justify-content: center; padding-right: 5%;">
-                   
-                    <table class="mi-tabla2">
+                    <td colspan="11">
+                        <table class="mi-tabla" style="margin-left: 3%;">
                         <?php
-                        
                         $sql2 = "SELECT * FROM IndiceDocumental WHERE Caja = '" . $fila['Caja'] . "' AND Carpeta = '" . $fila['Car2'] . "'";
                         $resultado2 = mysqli_query($conec, $sql2);
                         
                         if ($resultado2) {
                             while ($row = mysqli_fetch_assoc($resultado2)) {
                                 echo "<tr>";
-                                echo "<td style='text-align: left;'><i>{$row['DescripcionUnidadDocumental']}</i></td>";
+                                echo "<td><i>{$row['DescripcionUnidadDocumental']}</i></td>";
                                 echo "<td style='text-align: center;'>{$row['NoFolioInicio']}</td>";
                                 echo "<td style='text-align: center;'>{$row['NoFolioFin']}</td>";
                                 echo "<td style='text-align: center;'>{$row['Soporte']}</td>";
@@ -134,11 +88,8 @@
                             }
                         }
                         ?>
-                    </table>
-                </div>
-
-
-                </td>
+                        </table>
+                    </td>
                 </tr>
 
             <?php } ?>

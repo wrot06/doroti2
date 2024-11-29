@@ -1,18 +1,18 @@
-<?php	
+<?php
+// Obtener la contraseña desde una variable de entorno
+$password = "2024@#qwe123";
 
-$servername = "localhost"; // Cambia esto si es necesario
-$username = "congresoU";
-$password = "!”#qwe123";
+$servername = "localhost";
+$username = "U.congreso";
 $dbname = "congreso";
 
+// Crear conexión
 $conec = new mysqli($servername, $username, $password, $dbname);
 
-
-if (!$conec) {
-    die("Connection failed: " . mysqli_connect_error());
+// Verificar la conexión
+if ($conec->connect_error) {
+    die("Connection failed: " . $conec->connect_error);
 }
 
+//echo "Conexión exitosa U.congreso";
 
-
-
-	

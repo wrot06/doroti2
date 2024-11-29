@@ -1,7 +1,7 @@
 <?php
 require('fpdf.php');
 
-require('../rene/conexion3.php');
+require('../rene/conexion4.php');
 
 if(isset($_POST['consulta'])){
 	$idpost=$_POST['consulta'];           
@@ -44,7 +44,7 @@ $pdf->SetTitle(utf8_decode($Car2." Carpeta (Caja ".$Caja).")");
 
 $pdf->AddPage();
 $pdf->AliasNbPages();
-$pdf->Image('../img/Carpeta AYC-GDO-FR-19.jpg',0,0,335);
+$pdf->Image('../img/Carpeta AYC-GDO-FR-19 consu.jpg',0,0,335);
 
 
 
